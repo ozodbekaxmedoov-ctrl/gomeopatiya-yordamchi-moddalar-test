@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gomeopatiya yordamchi moddalari — Interaktiv Test (15 savol)</title>
+  <style>
+    :root {
+      --bg: #f4f7f6;
+      --surface: #ffffff;
+      --primary: #0f766e;
+      --primary-dark: #115e59;
+      --primary-light: #ccfbf1;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #15803d;
+      --success-bg: #dcfce7;
+      --danger: #b91c1c;
+      --danger-bg: #fee2e2;
+      --warning: #b45309;
+      --warning-bg: #fef3c7;
+      --radius: 14px;
+      --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+    }
+
+    .topbar-inner {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .progress-info {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      white-space: nowrap;
+    }
+
+    .progress-bar-wrap {
+      flex: 1;
+      height: 8px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      border-radius: 99px;
+      transition: width 0.3s ease;
+    }
+
+    .container {
+      max-width: 820px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+      color: #ffffff;
+      border-radius: var(--radius);
+      padding: 28px 26px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.16);
+      padding: 4px 12px;
+      border-radius: 99px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      margin-bottom: 10px;
+    }
+
+    .hero h1 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      font-size: 0.95rem;
+      color: #ccfbf1;
+    }
+
+    .result-card {
+      display: none;
+      background: var(--surface);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 26px;
+      margin-bottom: 26px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .result-card.visible {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .score-circle {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+      border: 4px solid var(--primary);
+    }
+
+    .score-num {
+      font-size: 1.65rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .score-pct {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .grade-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .grade-alo { background: var(--success-bg); color: var(--success); }
+    .grade-yaxshi { background: #e0f2fe; color: #0369a1; }
+    .grade-qoniqarli { background: var(--warning-bg); color: var(--warning); }
+    .grade-qoniqarsiz { background: var(--danger-bg); color: var(--danger); }
+
+    .result-stats {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin: 14px 0 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .stat-correct { color: var(--success); }
+    .stat-wrong { color: var(--danger); }
+
+    .question-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+      transition: border-color 0.25s ease;
+    }
+
+    .question-card.unanswered-alert {
+      border: 2px solid #f59e0b;
+    }
+
+    .question-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .q-number {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .q-text {
+      font-size: 1.03rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
+      text-align: left;
+      background: #f8fafc;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      font-family: inherit;
+      line-height: 1.45;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    .option-btn.selected {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .option-letter {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .option-btn.selected .option-letter {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .option-btn.correct-answer {
+      background: var(--success-bg) !important;
+      border-color: var(--success) !important;
+      color: var(--success) !important;
+      font-weight: 600;
+    }
+
+    .option-btn.correct-answer .option-letter {
+      background: var(--success);
+      color: #ffffff;
+      border-color: var(--success);
+    }
+
+    .option-btn.wrong-answer {
+      background: var(--danger-bg) !important;
+      border-color: var(--danger) !important;
+      color: var(--danger) !important;
+      font-weight: 600;
+    }
+
+    .option-btn.wrong-answer .option-letter {
+      background: var(--danger);
+      color: #ffffff;
+      border-color: var(--danger);
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    .explanation-box {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border-left: 4px solid var(--primary);
+      font-size: 0.9rem;
+      color: #334155;
+    }
+
+    .explanation-box.visible {
+      display: block;
+    }
+
+    .explanation-title {
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 3px;
+    }
+
+    .actions-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.12s ease, background 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(15, 118, 110, 0.28);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    .alert-msg {
+      display: none;
+      text-align: center;
+      color: var(--warning);
+      background: var(--warning-bg);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 16px;
+    }
+
+    .alert-msg.visible {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 22px 18px; }
+      .hero h1 { font-size: 1.22rem; }
+      .question-card { padding: 16px; }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="progress-info" id="progressText">Javob berildi: 0 / 15</div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="hero">
+      <div class="hero-tag">Maxsus dori turlari texnologiyasi • 2-MTT</div>
+      <h1>Gomeopatiya dorilarini tayyorlashda qo'llaniladigan yordamchi moddalarning ta'rifi</h1>
+      <p>V. Shvabe gomeopatik farmakopeyasi va o'quv qo'llanma asosida tuzilgan 15 ta nazorat testi. Barcha savollarga javob bering va yakuniy natijangizni ko'ring.</p>
+    </div>
+
+    <div class="result-card" id="resultCard">
+      <div class="score-circle">
+        <span class="score-num" id="scoreNum">0 / 15</span>
+        <span class="score-pct" id="scorePct">0%</span>
+      </div>
+      <div class="grade-badge" id="gradeBadge">Natija</div>
+      <p id="gradeDesc" style="color: var(--text-muted); font-size: 0.95rem;"></p>
+      <div class="result-stats">
+        <span class="stat-correct" id="statCorrect">To'g'ri: 0</span>
+        <span class="stat-wrong" id="statWrong">Xato: 0</span>
+      </div>
+      <button class="btn btn-secondary" onclick="resetQuiz()">Testni aralashtirib qayta ishlash</button>
+    </div>
+
+    <div id="quizContainer"></div>
+
+    <div class="alert-msg" id="alertMsg">Iltimos, natijani tekshirishdan oldin barcha 15 ta savolga javob bering.</div>
+
+    <div class="actions-bar">
+      <button class="btn btn-primary" id="submitBtn" onclick="submitQuiz()">Natijani tekshirish</button>
+      <button class="btn btn-secondary" id="resetBottomBtn" style="display:none;" onclick="resetQuiz()">Qayta boshlash</button>
+    </div>
+  </div>
+
+  <script>
+    const rawQuestions = [
+      {
+        q: "Gomeopatiyada dastlabki dorivor moddalarni suyultirishda asosiy muhit sifatida qaysi yordamchi moddalar qo'llaniladi?",
+        options: [
+          { text: "Tozalangan suv, etil spirti va sut qandi (laktoza)", correct: true },
+          { text: "Glitserin, vazelin moyi va saxaroza", correct: false },
+          { text: "Kraxmal, talk va distillangan suv", correct: false },
+          { text: "Etil efiri, glyukoza va asal", correct: false }
+        ],
+        explanation: "V. Shvabe farmakopeyasiga ko'ra dastlabki dorivor moddalarni suyultirish va potensiyalashda uchta asosiy yordamchi modda: tozalangan suv, turli quvvatdagi etil spirti va sut qandi ishlatiladi."
+      },
+      {
+        q: "Gomeopatik trituratsiyalarni tayyorlashda asosiy yordamchi modda sifatida nima uchun aynan sut qandi (laktoza) tanlanadi?",
+        options: [
+          { text: "Gigroskopik emasligi (nam tortmasligi) va kukun holatini yaxshi saqlashi uchun", correct: true },
+          { text: "Suvda bir zumda qoldiqsiz erib ketishi uchun", correct: false },
+          { text: "Shirin ta'mi dorivor moddaning zaharliligini neytrallashi uchun", correct: false },
+          { text: "Etil spirtida oson erib, tiniq eritma hosil qilishi uchun", correct: false }
+        ],
+        explanation: "Sut qandi gigroskopik emas va kimyoviy neytral modda bo'lib, 1 soat davomida hovonchada ishqalanganda ham namlanib qolmaydi va dorini bir tekis maydalashga yordam beradi."
+      },
+      {
+        q: "V. Shvabe qo'llanmasining 7-bandi bo'yicha trituratsiya tayyorlashda sut qandining birinchi 1/3 qismi chinni hovonchaga nima maqsadda oldin solib eziladi?",
+        options: [
+          { text: "Hovoncha devoridagi mayda g'ovaklarni berkitish va dori modda yo'qotilishining oldini olish uchun", correct: true },
+          { text: "Sut qandini qizdirib, kristall suvini bug'latib yuborish uchun", correct: false },
+          { text: "Dori modda bilan kimyoviy reaksiyaga kirishishini tezlashtirish uchun", correct: false },
+          { text: "Hovonchani dezinfeksiya qilish va yog'sizlantirish uchun", correct: false }
+        ],
+        explanation: "Kichik dozadagi dorivor modda chinni hovoncha g'ovaklariga kirib kamayib ketmasligi uchun avval sut qandining 1/3 qismi bilan hovoncha g'ovaklari berkitiladi."
+      },
+      {
+        q: "V. Shvabe farmakopeyasining 1, 2 va 3-bandlari bo'yicha yangi yig'ib olingan o'simliklardan essensiya tayyorlashda necha foizli etil spirti ishlatiladi?",
+        options: [
+          { text: "90% li etil spirti", correct: true },
+          { text: "70% li etil spirti", correct: false },
+          { text: "45% li etil spirti", correct: false },
+          { text: "96% li etil spirti", correct: false }
+        ],
+        explanation: "Shvabe farmakopeyasining 1, 2 va 3-bandlariga binoan yangi o'simlik shirasini konservatsiyalash hamda ekstraksiya qilish uchun faqat 90% li etil spirti qo'llaniladi."
+      },
+      {
+        q: "1- va 2-band bo'yicha tayyorlangan essensiyalardan birlamchi o'nlik (1X) tinktura olish uchun qaysi quvvatdagi spirt va qanday nisbatda olinadi?",
+        options: [
+          { text: "45% li etil spirti (2 qism essensiyaga 8 qism spirt)", correct: true },
+          { text: "60% li etil spirti (3 qism essensiyaga 7 qism spirt)", correct: false },
+          { text: "90% li etil spirti (1 qism essensiyaga 9 qism spirt)", correct: false },
+          { text: "70% li etil spirti (5 qism essensiyaga 5 qism spirt)", correct: false }
+        ],
+        explanation: "1- va 2-band essensiyalarida dori modda nisbati 1:2 bo'lgani uchun 1X tinktura tayyorlashda 2 qism essensiyaga 8 qism 45% li spirt qo'shiladi (3-bandda esa 3 qism essensiyaga 7 qism 60% spirt)."
+      },
+      {
+        q: "Sirtga qo'llash uchun mo'ljallangan gomeopatik spirtlar (masalan, Arnika yoki Apis spirti) tayyorlashda tinktura necha foizli spirt bilan suyultiriladi?",
+        options: [
+          { text: "70% li etil spirti bilan", correct: true },
+          { text: "45% li etil spirti bilan", correct: false },
+          { text: "96% li etil spirti bilan", correct: false },
+          { text: "60% li etil spirti bilan", correct: false }
+        ],
+        explanation: "Sirtga surtish uchun buyuriladigan gomeopatik spirtli eritmalar kerakli miqdordagi tinkturani 70% li etil spirti bilan aralashtirish orqali tayyorlanadi."
+      },
+      {
+        q: "V. Shvabe farmakopeyasiga ko'ra gomeopatik qand granulalari (donachalari) qanday xomashyodan tayyorlanadi?",
+        options: [
+          { text: "Toza, oliy navli shakarqamish shakaridan (saxaroza)", correct: true },
+          { text: "Qayta kristallangan sut qandidan (laktoza)", correct: false },
+          { text: "Makkajo'xori kraxmali va glyukoza aralashmasidan", correct: false },
+          { text: "Sorbit va mannit kukunidan", correct: false }
+        ],
+        explanation: "Shvabe qo'llanmasiga ko'ra qand granulalari oliy navli shakarqamish shakaridan obakilash usulida olinadi va suvda hech qanday qoldiqsiz erib ketishi shart."
+      },
+      {
+        q: "Gomeopatik granulalarni dori eritmasi bilan bir tekis to'yintirish (shimdirish) jarayonida yordamchi modda sifatida qanday spirt va qanday miqdorda ishlatiladi?",
+        options: [
+          { text: "70% li etil spirti (1 kg granulaga 10,0 g spirt)", correct: true },
+          { text: "90% li etil spirti (1 kg granulaga 50,0 g spirt)", correct: false },
+          { text: "45% li etil spirti (1 kg granulaga 100,0 g spirt)", correct: false },
+          { text: "96% li etil spirti (1 kg granulaga 5,0 g spirt)", correct: false }
+        ],
+        explanation: "Granulalar erib yopishib qolmasligi va dori modda bir tekis adsorbsiya qilinishi uchun 1 kg granulaga oldindan 10,0 g 70% li etil spirti namlash uchun purkaladi."
+      },
+      {
+        q: "Gomeopatiya amaliyotida diametri va massasiga ko'ra 1 dan 10 gacha tasniflangan qand granulalarining qaysi raqamlari eng ko'p ishlatiladi?",
+        options: [
+          { text: "4- va 5-raqamli granulalar", correct: true },
+          { text: "1- va 2-raqamli granulalar", correct: false },
+          { text: "7- va 8-raqamli granulalar", correct: false },
+          { text: "9- va 10-raqamli granulalar", correct: false }
+        ],
+        explanation: "Jadval bo'yicha 1 dan 10 gacha raqamlangan qand granulalari orasida amaliyotda dozalash va to'yintirish uchun eng qulay bo'lgan 4- va 5-raqamli granulalar keng qo'llaniladi."
+      },
+      {
+        q: "Gomeopatik tabletkalar tarkibiga qo'shiladigan kraxmal hamda kalsiy/magniy stearatlarning ruxsat etilgan maksimal miqdori qancha?",
+        options: [
+          { text: "Kraxmal 10% dan, kalsiy/magniy stearat 1% dan oshmasligi kerak", correct: true },
+          { text: "Kraxmal 20% dan, kalsiy/magniy stearat 5% dan oshmasligi kerak", correct: false },
+          { text: "Kraxmal 5% dan, kalsiy/magniy stearat 2% dan oshmasligi kerak", correct: false },
+          { text: "Kraxmal 15% dan, kalsiy/magniy stearat 3% dan oshmasligi kerak", correct: false }
+        ],
+        explanation: "Agar xususiy MTHda boshqa ko'rsatma bo'lmasa, gomeopatik tabletka o'rtacha massasining 10% igacha kraxmal va 1% igacha kalsiy yoki magniy stearat qo'shiladi."
+      },
+      {
+        q: "Gomeopatik surtma dorilarning umumiy og'irligida asoslarning ulushi necha foizdan yuqorini tashkil qiladi va Shvabe farmakopeyasida qaysi klassik asoslar ko'rsatilgan?",
+        options: [
+          { text: "80% dan yuqori; klassik asoslar — vazelin va lanolin", correct: true },
+          { text: "50% dan yuqori; klassik asoslar — mum va spermaset", correct: false },
+          { text: "60% dan yuqori; klassik asoslar — jelatin va glitserin", correct: false },
+          { text: "95% dan yuqori; klassik asoslar — PEO va bentonit", correct: false }
+        ],
+        explanation: "Asoslar surtma og'irligining 80% dan yuqorisini tashkil qilib, dorining so'rilishini belgilaydi. V. Shvabe farmakopeyasida klassik asos sifatida vazelin va lanolin ko'rsatilgan."
+      },
+      {
+        q: "Zamonaviy gomeopatik surtmalarda ishlatiladigan sellyuloza hosilalari (MS, KMS, Na-KMS), bentonitlar va kollagenlar qaysi asoslar guruhiga kiradi?",
+        options: [
+          { text: "Gidrofil asoslar guruhiga", correct: true },
+          { text: "Gidrofob asoslar guruhiga", correct: false },
+          { text: "Difil (emulsion) asoslar guruhiga", correct: false },
+          { text: "Uglevodorodli asoslar guruhiga", correct: false }
+        ],
+        explanation: "Suvda yaxshi bo'kuvchi va eruvchi sellyuloza hosilalari, bentonitlar, fitosterin, kollagen va jelatin-glitserinli tarkiblar gidrofil asoslar guruhiga kiradi."
+      },
+      {
+        q: "Gomeopatik opodeldoklar (sovunli linimentlar) asosining standart tarkibi qanday komponentlardan iborat?",
+        options: [
+          { text: "Spirtli sovun (2 qism), tozalangan suv (1 qism) va 96% li spirt (1 qism)", correct: true },
+          { text: "Vazelin moyi (2 qism), glitserin (1 qism) va 70% li spirt (1 qism)", correct: false },
+          { text: "Lanolin (2 qism), shaftoli moyi (1 qism) va 90% li spirt (1 qism)", correct: false },
+          { text: "Jelatin (1 qism), glitserin (5 qism) va tozalangan suv (2 qism)", correct: false }
+        ],
+        explanation: "Gomeopatik opodeldok asosi 2 qism spirtli sovun, 1 qism suv va 1 qism 96% li etil spirtidan tayyorlanadigan tana haroratida eruvchi liqildoq massadir."
+      },
+      {
+        q: "V. Shvabe farmakopeyasida gomeopatik shamchalar uchun ko'rsatilgan asosiy gidrofob yordamchi modda nima va massa qovushqoqligini oshirish uchun unga nima qo'shiladi?",
+        options: [
+          { text: "Kakao moyi; qovushqoqlikni oshirish uchun 30 g massaga 1 g gacha suvsiz lanolin qo'shiladi", correct: true },
+          { text: "Butirol; qovushqoqlikni oshirish uchun 30 g massaga 5 g asalari mumi qo'shiladi", correct: false },
+          { text: "Parafin; qovushqoqlikni oshirish uchun 30 g massaga 2 g vazelin qo'shiladi", correct: false },
+          { text: "Paxta moyi gidrogenizati; qovushqoqlikni oshirish uchun 30 g massaga 3 g kraxmal qo'shiladi", correct: false }
+        ],
+        explanation: "V. Shvabe farmakopeyasida shamchalar uchun kakao moyi ko'rsatilgan; juvalash usulida massa plastikligini oshirish uchun 30 g massaga 1 g gacha suvsiz lanolin qo'shiladi."
+      },
+      {
+        q: "DF XI nashri bo'yicha gomeopatik shamchalar uchun qo'llaniladigan gidrofil jelatin-glitserinli asosning tarkibiy nisbati va kakao moyiga nisbatan zichlik koeffitsienti qanday?",
+        options: [
+          { text: "1 qism jelatin, 5 qism glitserin, 2 qism suv; zichlik koeffitsienti — 1,21", correct: true },
+          { text: "2 qism jelatin, 5 qism glitserin, 1 qism suv; zichlik koeffitsienti — 1,10", correct: false },
+          { text: "1 qism jelatin, 2 qism glitserin, 5 qism suv; zichlik koeffitsienti — 0,95", correct: false },
+          { text: "3 qism jelatin, 4 qism glitserin, 1 qism suv; zichlik koeffitsienti — 1,35", correct: false }
+        ],
+        explanation: "Jelatin-glitserinli asos 1 qism jelatin, 5 qism glitserin va 2 qism tozalangan suvdan iborat. Zichligi kakao moyidan yuqori bo'lgani uchun massa 1,21 koeffitsientga ko'paytiriladi."
+      }
+    ];
+
+    let activeQuestions = [];
+    let userAnswers = {};
+    let isSubmitted = false;
+    const letters = ["A", "B", "C", "D"];
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function initQuiz(shuffle = false) {
+      isSubmitted = false;
+      userAnswers = {};
+      activeQuestions = rawQuestions.map((item) => ({
+        q: item.q,
+        options: shuffle ? shuffleArray(item.options) : [...item.options],
+        explanation: item.explanation
+      }));
+
+      document.getElementById("resultCard").classList.remove("visible");
+      document.getElementById("alertMsg").classList.remove("visible");
+      document.getElementById("submitBtn").style.display = "inline-block";
+      document.getElementById("resetBottomBtn").style.display = "none";
+
+      renderQuestions();
+      updateProgress();
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById("quizContainer");
+      container.innerHTML = "";
+
+      activeQuestions.forEach((item, qIdx) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.id = `q-card-${qIdx}`;
+
+        let optionsHtml = "";
+        item.options.forEach((opt, optIdx) => {
+          optionsHtml += `
+            <button type="button" class="option-btn" id="opt-${qIdx}-${optIdx}" onclick="selectOption(${qIdx}, ${optIdx})">
+              <span class="option-letter">${letters[optIdx]}</span>
+              <span>${opt.text}</span>
+            </button>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="question-header">
+            <div class="q-number">${qIdx + 1}</div>
+            <div class="q-text">${item.q}</div>
+          </div>
+          <div class="options-list">${optionsHtml}</div>
+          <div class="explanation-box" id="exp-${qIdx}">
+            <div class="explanation-title">Farmakopeya izohi:</div>
+            <div>${item.explanation}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function selectOption(qIdx, optIdx) {
+      if (isSubmitted) return;
+
+      userAnswers[qIdx] = optIdx;
+      const card = document.getElementById(`q-card-${qIdx}`);
+      card.classList.remove("unanswered-alert");
+
+      const buttons = card.querySelectorAll(".option-btn");
+      buttons.forEach((btn, idx) => {
+        btn.classList.toggle("selected", idx === optIdx);
+      });
+
+      document.getElementById("alertMsg").classList.remove("visible");
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const total = activeQuestions.length;
+      document.getElementById("progressText").textContent = `Javob berildi: ${answeredCount} / ${total}`;
+      document.getElementById("progressBar").style.width = `${(answeredCount / total) * 100}%`;
+    }
+
+    function submitQuiz() {
+      const total = activeQuestions.length;
+      let firstUnanswered = -1;
+
+      for (let i = 0; i < total; i++) {
+        const card = document.getElementById(`q-card-${i}`);
+        if (userAnswers[i] === undefined) {
+          card.classList.add("unanswered-alert");
+          if (firstUnanswered === -1) firstUnanswered = i;
+        } else {
+          card.classList.remove("unanswered-alert");
+        }
+      }
+
+      if (firstUnanswered !== -1) {
+        const alertEl = document.getElementById("alertMsg");
+        alertEl.classList.add("visible");
+        document.getElementById(`q-card-${firstUnanswered}`).scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      isSubmitted = true;
+      let correctCount = 0;
+
+      activeQuestions.forEach((item, qIdx) => {
+        const chosenIdx = userAnswers[qIdx];
+        const card = document.getElementById(`q-card-${qIdx}`);
+        const buttons = card.querySelectorAll(".option-btn");
+
+        buttons.forEach((btn, optIdx) => {
+          btn.disabled = true;
+          btn.classList.remove("selected");
+          if (item.options[optIdx].correct) {
+            btn.classList.add("correct-answer");
+          } else if (optIdx === chosenIdx) {
+            btn.classList.add("wrong-answer");
+          }
+        });
+
+        if (item.options[chosenIdx].correct) {
+          correctCount++;
+        }
+
+        document.getElementById(`exp-${qIdx}`).classList.add("visible");
+      });
+
+      const wrongCount = total - correctCount;
+      const pct = Math.round((correctCount / total) * 100);
+
+      document.getElementById("scoreNum").textContent = `${correctCount} / ${total}`;
+      document.getElementById("scorePct").textContent = `${pct}%`;
+      document.getElementById("statCorrect").textContent = `To'g'ri: ${correctCount}`;
+      document.getElementById("statWrong").textContent = `Xato: ${wrongCount}`;
+
+      const badge = document.getElementById("gradeBadge");
+      const desc = document.getElementById("gradeDesc");
+      badge.className = "grade-badge";
+
+      if (pct >= 86) {
+        badge.textContent = "Baholash: A'lo";
+        badge.classList.add("grade-alo");
+        desc.textContent = "Gomeopatik yordamchi moddalar va V. Shvabe farmakopeyasi talablarini mukammal o'zlashtirgansiz.";
+      } else if (pct >= 71) {
+        badge.textContent = "Baholash: Yaxshi";
+        badge.classList.add("grade-yaxshi");
+        desc.textContent = "Natija yaxshi. Xato qilingan savollar ostidagi farmakopeya izohlarini ko'rib chiqing.";
+      } else if (pct >= 55) {
+        badge.textContent = "Baholash: Qoniqarli";
+        badge.classList.add("grade-qoniqarli");
+        desc.textContent = "Asosiy tushunchalar bor, biroq foiz nisbatlari va asoslar tasnifini takrorlash zarur.";
+      } else {
+        badge.textContent = "Baholash: Qoniqarsiz";
+        badge.classList.add("grade-qoniqarsiz");
+        desc.textContent = "O'quv qo'llanmadagi trituratsiya, granula, surtma va shamcha asoslari bo'limlarini qayta o'qing.";
+      }
+
+      document.getElementById("resultCard").classList.add("visible");
+      document.getElementById("submitBtn").style.display = "none";
+      document.getElementById("resetBottomBtn").style.display = "inline-block";
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function resetQuiz() {
+      initQuiz(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    initQuiz(false);
+  </script>
+</body>
+</html>
