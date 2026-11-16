@@ -434,7 +434,7 @@
         <span class="stat-correct" id="statCorrect">To'g'ri: 0</span>
         <span class="stat-wrong" id="statWrong">Xato: 0</span>
       </div>
-      <button class="btn btn-secondary" onclick="resetQuiz()">Testni aralashtirib qayta ishlash</button>
+      <button class="btn btn-secondary" onclick="resetQuiz()">Variantlarni aralashtirib qayta ishlash</button>
     </div>
 
     <div id="quizContainer"></div>
@@ -452,8 +452,8 @@
       {
         q: "Gomeopatiyada dastlabki dorivor moddalarni suyultirishda asosiy muhit sifatida qaysi yordamchi moddalar qo'llaniladi?",
         options: [
-          { text: "Tozalangan suv, etil spirti va sut qandi (laktoza)", correct: true },
           { text: "Glitserin, vazelin moyi va saxaroza", correct: false },
+          { text: "Tozalangan suv, etil spirti va sut qandi (laktoza)", correct: true },
           { text: "Kraxmal, talk va distillangan suv", correct: false },
           { text: "Etil efiri, glyukoza va asal", correct: false }
         ],
@@ -462,10 +462,10 @@
       {
         q: "Gomeopatik trituratsiyalarni tayyorlashda asosiy yordamchi modda sifatida nima uchun aynan sut qandi (laktoza) tanlanadi?",
         options: [
-          { text: "Gigroskopik emasligi (nam tortmasligi) va kukun holatini yaxshi saqlashi uchun", correct: true },
           { text: "Suvda bir zumda qoldiqsiz erib ketishi uchun", correct: false },
           { text: "Shirin ta'mi dorivor moddaning zaharliligini neytrallashi uchun", correct: false },
-          { text: "Etil spirtida oson erib, tiniq eritma hosil qilishi uchun", correct: false }
+          { text: "Etil spirtida oson erib, tiniq eritma hosil qilishi uchun", correct: false },
+          { text: "Gigroskopik emasligi (nam tortmasligi) va kukun holatini yaxshi saqlashi uchun", correct: true }
         ],
         explanation: "Sut qandi gigroskopik emas va kimyoviy neytral modda bo'lib, 1 soat davomida hovonchada ishqalanganda ham namlanib qolmaydi va dorini bir tekis maydalashga yordam beradi."
       },
@@ -482,9 +482,9 @@
       {
         q: "V. Shvabe farmakopeyasining 1, 2 va 3-bandlari bo'yicha yangi yig'ib olingan o'simliklardan essensiya tayyorlashda necha foizli etil spirti ishlatiladi?",
         options: [
-          { text: "90% li etil spirti", correct: true },
           { text: "70% li etil spirti", correct: false },
           { text: "45% li etil spirti", correct: false },
+          { text: "90% li etil spirti", correct: true },
           { text: "96% li etil spirti", correct: false }
         ],
         explanation: "Shvabe farmakopeyasining 1, 2 va 3-bandlariga binoan yangi o'simlik shirasini konservatsiyalash hamda ekstraksiya qilish uchun faqat 90% li etil spirti qo'llaniladi."
@@ -492,293 +492,5 @@
       {
         q: "1- va 2-band bo'yicha tayyorlangan essensiyalardan birlamchi o'nlik (1X) tinktura olish uchun qaysi quvvatdagi spirt va qanday nisbatda olinadi?",
         options: [
-          { text: "45% li etil spirti (2 qism essensiyaga 8 qism spirt)", correct: true },
           { text: "60% li etil spirti (3 qism essensiyaga 7 qism spirt)", correct: false },
-          { text: "90% li etil spirti (1 qism essensiyaga 9 qism spirt)", correct: false },
-          { text: "70% li etil spirti (5 qism essensiyaga 5 qism spirt)", correct: false }
-        ],
-        explanation: "1- va 2-band essensiyalarida dori modda nisbati 1:2 bo'lgani uchun 1X tinktura tayyorlashda 2 qism essensiyaga 8 qism 45% li spirt qo'shiladi (3-bandda esa 3 qism essensiyaga 7 qism 60% spirt)."
-      },
-      {
-        q: "Sirtga qo'llash uchun mo'ljallangan gomeopatik spirtlar (masalan, Arnika yoki Apis spirti) tayyorlashda tinktura necha foizli spirt bilan suyultiriladi?",
-        options: [
-          { text: "70% li etil spirti bilan", correct: true },
-          { text: "45% li etil spirti bilan", correct: false },
-          { text: "96% li etil spirti bilan", correct: false },
-          { text: "60% li etil spirti bilan", correct: false }
-        ],
-        explanation: "Sirtga surtish uchun buyuriladigan gomeopatik spirtli eritmalar kerakli miqdordagi tinkturani 70% li etil spirti bilan aralashtirish orqali tayyorlanadi."
-      },
-      {
-        q: "V. Shvabe farmakopeyasiga ko'ra gomeopatik qand granulalari (donachalari) qanday xomashyodan tayyorlanadi?",
-        options: [
-          { text: "Toza, oliy navli shakarqamish shakaridan (saxaroza)", correct: true },
-          { text: "Qayta kristallangan sut qandidan (laktoza)", correct: false },
-          { text: "Makkajo'xori kraxmali va glyukoza aralashmasidan", correct: false },
-          { text: "Sorbit va mannit kukunidan", correct: false }
-        ],
-        explanation: "Shvabe qo'llanmasiga ko'ra qand granulalari oliy navli shakarqamish shakaridan obakilash usulida olinadi va suvda hech qanday qoldiqsiz erib ketishi shart."
-      },
-      {
-        q: "Gomeopatik granulalarni dori eritmasi bilan bir tekis to'yintirish (shimdirish) jarayonida yordamchi modda sifatida qanday spirt va qanday miqdorda ishlatiladi?",
-        options: [
-          { text: "70% li etil spirti (1 kg granulaga 10,0 g spirt)", correct: true },
-          { text: "90% li etil spirti (1 kg granulaga 50,0 g spirt)", correct: false },
-          { text: "45% li etil spirti (1 kg granulaga 100,0 g spirt)", correct: false },
-          { text: "96% li etil spirti (1 kg granulaga 5,0 g spirt)", correct: false }
-        ],
-        explanation: "Granulalar erib yopishib qolmasligi va dori modda bir tekis adsorbsiya qilinishi uchun 1 kg granulaga oldindan 10,0 g 70% li etil spirti namlash uchun purkaladi."
-      },
-      {
-        q: "Gomeopatiya amaliyotida diametri va massasiga ko'ra 1 dan 10 gacha tasniflangan qand granulalarining qaysi raqamlari eng ko'p ishlatiladi?",
-        options: [
-          { text: "4- va 5-raqamli granulalar", correct: true },
-          { text: "1- va 2-raqamli granulalar", correct: false },
-          { text: "7- va 8-raqamli granulalar", correct: false },
-          { text: "9- va 10-raqamli granulalar", correct: false }
-        ],
-        explanation: "Jadval bo'yicha 1 dan 10 gacha raqamlangan qand granulalari orasida amaliyotda dozalash va to'yintirish uchun eng qulay bo'lgan 4- va 5-raqamli granulalar keng qo'llaniladi."
-      },
-      {
-        q: "Gomeopatik tabletkalar tarkibiga qo'shiladigan kraxmal hamda kalsiy/magniy stearatlarning ruxsat etilgan maksimal miqdori qancha?",
-        options: [
-          { text: "Kraxmal 10% dan, kalsiy/magniy stearat 1% dan oshmasligi kerak", correct: true },
-          { text: "Kraxmal 20% dan, kalsiy/magniy stearat 5% dan oshmasligi kerak", correct: false },
-          { text: "Kraxmal 5% dan, kalsiy/magniy stearat 2% dan oshmasligi kerak", correct: false },
-          { text: "Kraxmal 15% dan, kalsiy/magniy stearat 3% dan oshmasligi kerak", correct: false }
-        ],
-        explanation: "Agar xususiy MTHda boshqa ko'rsatma bo'lmasa, gomeopatik tabletka o'rtacha massasining 10% igacha kraxmal va 1% igacha kalsiy yoki magniy stearat qo'shiladi."
-      },
-      {
-        q: "Gomeopatik surtma dorilarning umumiy og'irligida asoslarning ulushi necha foizdan yuqorini tashkil qiladi va Shvabe farmakopeyasida qaysi klassik asoslar ko'rsatilgan?",
-        options: [
-          { text: "80% dan yuqori; klassik asoslar — vazelin va lanolin", correct: true },
-          { text: "50% dan yuqori; klassik asoslar — mum va spermaset", correct: false },
-          { text: "60% dan yuqori; klassik asoslar — jelatin va glitserin", correct: false },
-          { text: "95% dan yuqori; klassik asoslar — PEO va bentonit", correct: false }
-        ],
-        explanation: "Asoslar surtma og'irligining 80% dan yuqorisini tashkil qilib, dorining so'rilishini belgilaydi. V. Shvabe farmakopeyasida klassik asos sifatida vazelin va lanolin ko'rsatilgan."
-      },
-      {
-        q: "Zamonaviy gomeopatik surtmalarda ishlatiladigan sellyuloza hosilalari (MS, KMS, Na-KMS), bentonitlar va kollagenlar qaysi asoslar guruhiga kiradi?",
-        options: [
-          { text: "Gidrofil asoslar guruhiga", correct: true },
-          { text: "Gidrofob asoslar guruhiga", correct: false },
-          { text: "Difil (emulsion) asoslar guruhiga", correct: false },
-          { text: "Uglevodorodli asoslar guruhiga", correct: false }
-        ],
-        explanation: "Suvda yaxshi bo'kuvchi va eruvchi sellyuloza hosilalari, bentonitlar, fitosterin, kollagen va jelatin-glitserinli tarkiblar gidrofil asoslar guruhiga kiradi."
-      },
-      {
-        q: "Gomeopatik opodeldoklar (sovunli linimentlar) asosining standart tarkibi qanday komponentlardan iborat?",
-        options: [
-          { text: "Spirtli sovun (2 qism), tozalangan suv (1 qism) va 96% li spirt (1 qism)", correct: true },
-          { text: "Vazelin moyi (2 qism), glitserin (1 qism) va 70% li spirt (1 qism)", correct: false },
-          { text: "Lanolin (2 qism), shaftoli moyi (1 qism) va 90% li spirt (1 qism)", correct: false },
-          { text: "Jelatin (1 qism), glitserin (5 qism) va tozalangan suv (2 qism)", correct: false }
-        ],
-        explanation: "Gomeopatik opodeldok asosi 2 qism spirtli sovun, 1 qism suv va 1 qism 96% li etil spirtidan tayyorlanadigan tana haroratida eruvchi liqildoq massadir."
-      },
-      {
-        q: "V. Shvabe farmakopeyasida gomeopatik shamchalar uchun ko'rsatilgan asosiy gidrofob yordamchi modda nima va massa qovushqoqligini oshirish uchun unga nima qo'shiladi?",
-        options: [
-          { text: "Kakao moyi; qovushqoqlikni oshirish uchun 30 g massaga 1 g gacha suvsiz lanolin qo'shiladi", correct: true },
-          { text: "Butirol; qovushqoqlikni oshirish uchun 30 g massaga 5 g asalari mumi qo'shiladi", correct: false },
-          { text: "Parafin; qovushqoqlikni oshirish uchun 30 g massaga 2 g vazelin qo'shiladi", correct: false },
-          { text: "Paxta moyi gidrogenizati; qovushqoqlikni oshirish uchun 30 g massaga 3 g kraxmal qo'shiladi", correct: false }
-        ],
-        explanation: "V. Shvabe farmakopeyasida shamchalar uchun kakao moyi ko'rsatilgan; juvalash usulida massa plastikligini oshirish uchun 30 g massaga 1 g gacha suvsiz lanolin qo'shiladi."
-      },
-      {
-        q: "DF XI nashri bo'yicha gomeopatik shamchalar uchun qo'llaniladigan gidrofil jelatin-glitserinli asosning tarkibiy nisbati va kakao moyiga nisbatan zichlik koeffitsienti qanday?",
-        options: [
-          { text: "1 qism jelatin, 5 qism glitserin, 2 qism suv; zichlik koeffitsienti — 1,21", correct: true },
-          { text: "2 qism jelatin, 5 qism glitserin, 1 qism suv; zichlik koeffitsienti — 1,10", correct: false },
-          { text: "1 qism jelatin, 2 qism glitserin, 5 qism suv; zichlik koeffitsienti — 0,95", correct: false },
-          { text: "3 qism jelatin, 4 qism glitserin, 1 qism suv; zichlik koeffitsienti — 1,35", correct: false }
-        ],
-        explanation: "Jelatin-glitserinli asos 1 qism jelatin, 5 qism glitserin va 2 qism tozalangan suvdan iborat. Zichligi kakao moyidan yuqori bo'lgani uchun massa 1,21 koeffitsientga ko'paytiriladi."
-      }
-    ];
-
-    let activeQuestions = [];
-    let userAnswers = {};
-    let isSubmitted = false;
-    const letters = ["A", "B", "C", "D"];
-
-    function shuffleArray(arr) {
-      const copy = [...arr];
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
-      }
-      return copy;
-    }
-
-    function initQuiz(shuffle = false) {
-      isSubmitted = false;
-      userAnswers = {};
-      activeQuestions = rawQuestions.map((item) => ({
-        q: item.q,
-        options: shuffle ? shuffleArray(item.options) : [...item.options],
-        explanation: item.explanation
-      }));
-
-      document.getElementById("resultCard").classList.remove("visible");
-      document.getElementById("alertMsg").classList.remove("visible");
-      document.getElementById("submitBtn").style.display = "inline-block";
-      document.getElementById("resetBottomBtn").style.display = "none";
-
-      renderQuestions();
-      updateProgress();
-    }
-
-    function renderQuestions() {
-      const container = document.getElementById("quizContainer");
-      container.innerHTML = "";
-
-      activeQuestions.forEach((item, qIdx) => {
-        const card = document.createElement("div");
-        card.className = "question-card";
-        card.id = `q-card-${qIdx}`;
-
-        let optionsHtml = "";
-        item.options.forEach((opt, optIdx) => {
-          optionsHtml += `
-            <button type="button" class="option-btn" id="opt-${qIdx}-${optIdx}" onclick="selectOption(${qIdx}, ${optIdx})">
-              <span class="option-letter">${letters[optIdx]}</span>
-              <span>${opt.text}</span>
-            </button>
-          `;
-        });
-
-        card.innerHTML = `
-          <div class="question-header">
-            <div class="q-number">${qIdx + 1}</div>
-            <div class="q-text">${item.q}</div>
-          </div>
-          <div class="options-list">${optionsHtml}</div>
-          <div class="explanation-box" id="exp-${qIdx}">
-            <div class="explanation-title">Farmakopeya izohi:</div>
-            <div>${item.explanation}</div>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function selectOption(qIdx, optIdx) {
-      if (isSubmitted) return;
-
-      userAnswers[qIdx] = optIdx;
-      const card = document.getElementById(`q-card-${qIdx}`);
-      card.classList.remove("unanswered-alert");
-
-      const buttons = card.querySelectorAll(".option-btn");
-      buttons.forEach((btn, idx) => {
-        btn.classList.toggle("selected", idx === optIdx);
-      });
-
-      document.getElementById("alertMsg").classList.remove("visible");
-      updateProgress();
-    }
-
-    function updateProgress() {
-      const answeredCount = Object.keys(userAnswers).length;
-      const total = activeQuestions.length;
-      document.getElementById("progressText").textContent = `Javob berildi: ${answeredCount} / ${total}`;
-      document.getElementById("progressBar").style.width = `${(answeredCount / total) * 100}%`;
-    }
-
-    function submitQuiz() {
-      const total = activeQuestions.length;
-      let firstUnanswered = -1;
-
-      for (let i = 0; i < total; i++) {
-        const card = document.getElementById(`q-card-${i}`);
-        if (userAnswers[i] === undefined) {
-          card.classList.add("unanswered-alert");
-          if (firstUnanswered === -1) firstUnanswered = i;
-        } else {
-          card.classList.remove("unanswered-alert");
-        }
-      }
-
-      if (firstUnanswered !== -1) {
-        const alertEl = document.getElementById("alertMsg");
-        alertEl.classList.add("visible");
-        document.getElementById(`q-card-${firstUnanswered}`).scrollIntoView({ behavior: "smooth", block: "center" });
-        return;
-      }
-
-      isSubmitted = true;
-      let correctCount = 0;
-
-      activeQuestions.forEach((item, qIdx) => {
-        const chosenIdx = userAnswers[qIdx];
-        const card = document.getElementById(`q-card-${qIdx}`);
-        const buttons = card.querySelectorAll(".option-btn");
-
-        buttons.forEach((btn, optIdx) => {
-          btn.disabled = true;
-          btn.classList.remove("selected");
-          if (item.options[optIdx].correct) {
-            btn.classList.add("correct-answer");
-          } else if (optIdx === chosenIdx) {
-            btn.classList.add("wrong-answer");
-          }
-        });
-
-        if (item.options[chosenIdx].correct) {
-          correctCount++;
-        }
-
-        document.getElementById(`exp-${qIdx}`).classList.add("visible");
-      });
-
-      const wrongCount = total - correctCount;
-      const pct = Math.round((correctCount / total) * 100);
-
-      document.getElementById("scoreNum").textContent = `${correctCount} / ${total}`;
-      document.getElementById("scorePct").textContent = `${pct}%`;
-      document.getElementById("statCorrect").textContent = `To'g'ri: ${correctCount}`;
-      document.getElementById("statWrong").textContent = `Xato: ${wrongCount}`;
-
-      const badge = document.getElementById("gradeBadge");
-      const desc = document.getElementById("gradeDesc");
-      badge.className = "grade-badge";
-
-      if (pct >= 86) {
-        badge.textContent = "Baholash: A'lo";
-        badge.classList.add("grade-alo");
-        desc.textContent = "Gomeopatik yordamchi moddalar va V. Shvabe farmakopeyasi talablarini mukammal o'zlashtirgansiz.";
-      } else if (pct >= 71) {
-        badge.textContent = "Baholash: Yaxshi";
-        badge.classList.add("grade-yaxshi");
-        desc.textContent = "Natija yaxshi. Xato qilingan savollar ostidagi farmakopeya izohlarini ko'rib chiqing.";
-      } else if (pct >= 55) {
-        badge.textContent = "Baholash: Qoniqarli";
-        badge.classList.add("grade-qoniqarli");
-        desc.textContent = "Asosiy tushunchalar bor, biroq foiz nisbatlari va asoslar tasnifini takrorlash zarur.";
-      } else {
-        badge.textContent = "Baholash: Qoniqarsiz";
-        badge.classList.add("grade-qoniqarsiz");
-        desc.textContent = "O'quv qo'llanmadagi trituratsiya, granula, surtma va shamcha asoslari bo'limlarini qayta o'qing.";
-      }
-
-      document.getElementById("resultCard").classList.add("visible");
-      document.getElementById("submitBtn").style.display = "none";
-      document.getElementById("resetBottomBtn").style.display = "inline-block";
-
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function resetQuiz() {
-      initQuiz(true);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    initQuiz(false);
-  </script>
-</body>
-</html>
+          { text
